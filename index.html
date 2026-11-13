@@ -222,9 +222,100 @@
   .err{display:none;color:#a33;font-size:13.5px;margin-top:8px;text-align:left}
 
   /* Reveal */
-  .rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)}
-  .rv.in{opacity:1;transform:none}
 
+
+  /* ===== Motion layer ===== */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:70;background:linear-gradient(90deg,var(--lb),#fff,var(--lb-dark));box-shadow:0 0 12px rgba(143,189,217,.8)}
+  .rv{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s cubic-bezier(.22,1,.36,1),filter .9s ease;filter:blur(4px);transition-delay:var(--d,0s)}
+  .rv.from-left{transform:translateX(-50px)}
+  .rv.from-right{transform:translateX(50px)}
+  .rv.zoom{transform:scale(.92)}
+  .rv.in{opacity:1;transform:none;filter:none}
+  /* headline word reveal */
+  .split .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .04em .12em}
+  .split .w>span{display:inline-block;transform:translateY(110%) rotate(6deg);opacity:0;transition:transform 1s cubic-bezier(.22,1,.36,1),opacity .8s ease;transition-delay:calc(var(--i)*90ms + var(--base,0ms))}
+  .split.in .w>span{transform:none;opacity:1}
+  /* hero entrance */
+  .hero .intro,.hero .cta,.hero .quote,.hero .ways{opacity:0;transform:translateY(24px);animation:heroUp 1s cubic-bezier(.22,1,.36,1) forwards}
+  .hero .intro{animation-delay:.55s}.hero .cta{animation-delay:.75s}.hero .quote{animation-delay:.9s}.hero .ways{animation-delay:1.05s}
+  .hero .way{opacity:0;transform:translateX(-14px);animation:heroSide .8s cubic-bezier(.22,1,.36,1) forwards}
+  .hero .way:nth-of-type(1){animation-delay:1.15s}.hero .way:nth-of-type(2){animation-delay:1.25s}.hero .way:nth-of-type(3){animation-delay:1.35s}.hero .way:nth-of-type(4){animation-delay:1.45s}
+  @keyframes heroUp{to{opacity:1;transform:none}}
+  @keyframes heroSide{to{opacity:1;transform:none}}
+  .hero-tag{animation:tagIn 1s 1.3s cubic-bezier(.22,1,.36,1) both,float 6s 2.3s ease-in-out infinite}
+  @keyframes tagIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:none}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .hero-photo img{animation:heroIn 1.8s cubic-bezier(.22,1,.36,1) both,kenburns 22s 1.8s ease-in-out infinite alternate}
+  @keyframes kenburns{from{transform:scale(1.04)}to{transform:scale(1.12) translate(-1.5%,1%)}}
+  .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;z-index:1;pointer-events:none;animation:drift 18s ease-in-out infinite alternate}
+  .orb.o1{width:340px;height:340px;background:#0068bb;left:-80px;top:18%}
+  .orb.o2{width:260px;height:260px;background:#8fbdd9;left:38%;bottom:6%;opacity:.25;animation-duration:24s}
+  @keyframes drift{from{transform:translate(0,0)}to{transform:translate(60px,-40px)}}
+  .way .ring{position:relative}
+  .way .ring:after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--lb);opacity:0;animation:pulse 2.8s ease-out infinite}
+  .way:nth-of-type(2) .ring:after{animation-delay:.7s}.way:nth-of-type(3) .ring:after{animation-delay:1.4s}.way:nth-of-type(4) .ring:after{animation-delay:2.1s}
+  @keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+  /* animated wave */
+  .hood path{animation:wave 9s ease-in-out infinite alternate}
+  @keyframes wave{0%{d:path("M0 70V30C240 0 480 0 720 26s480 40 720 4v40z")}100%{d:path("M0 70V38C260 58 500 8 760 18s440 30 680 0v52z")}}
+  /* nav link underline */
+  .menu a:not(.btn){position:relative}
+  .menu a:not(.btn):after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:1.5px;background:var(--lb-light);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  .menu a:not(.btn):hover:after{transform:scaleX(1)}
+  /* heading underline draw */
+  .h2{position:relative;display:inline-block}
+  .h2:after{content:"";position:absolute;left:4px;bottom:6px;height:3px;width:56px;border-radius:3px;background:linear-gradient(90deg,var(--lb-dark),transparent);transform:scaleX(0);transform-origin:left;transition:transform 1s .4s cubic-bezier(.22,1,.36,1)}
+  .in .h2:after,.h2.in:after{transform:scaleX(1)}
+  .stats-wrap .h2:after,#faq .h2:after{left:50%;margin-left:-28px}
+  #faq .container{text-align:center}
+  #faq .faq{text-align:left}
+  .hero-photo{transition:transform .8s cubic-bezier(.22,1,.36,1)}
+  /* image curtain reveal */
+  .reveal-img{clip-path:inset(0 100% 0 0);transition:clip-path 1.3s cubic-bezier(.77,0,.18,1)}
+  .in .reveal-img,.reveal-img.in{clip-path:inset(0 0 0 0)}
+  .row .pic img,.portrait img{transition:transform 1.6s cubic-bezier(.22,1,.36,1)}
+  .row .pic{position:relative}
+  .row .pic img{transform:scale(1.15)}
+  .row.in .pic img{transform:scale(1)}
+  .row .pic:hover img{transform:scale(1.05)}
+  /* card 3D tilt + shine */
+  .cards{perspective:1200px}
+  .card{transform-style:preserve-3d;will-change:transform}
+  .card .ph{position:relative}
+  .card .ph:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s ease}
+  .card:hover .ph:after{transform:translateX(120%)}
+  /* buttons shimmer */
+  .btn-light,.btn-primary{position:relative;overflow:hidden}
+  .btn-light:before,.btn-primary:before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:shine 4.5s 2s ease-in-out infinite}
+  .btn-primary:before{background:linear-gradient(100deg,transparent,rgba(255,255,255,.25),transparent)}
+  @keyframes shine{0%,70%{left:-60%}100%{left:130%}}
+  /* marquee */
+  .marquee{background:var(--blue);color:var(--white-lighter);overflow:hidden;padding:18px 0;border-top:1px solid rgba(255,255,255,.08)}
+  .marquee .track{display:flex;width:max-content;animation:marq 38s linear infinite}
+  .marquee:hover .track{animation-play-state:paused}
+  .marquee span{font:400 22px var(--sub);white-space:nowrap;padding:0 26px;display:flex;align-items:center;gap:26px}
+  .marquee span:after{content:"✦";color:var(--lb);font-size:14px}
+  @keyframes marq{to{transform:translateX(-50%)}}
+  /* review stars pop */
+  .stars span{display:inline-block;opacity:0;transform:scale(.3) rotate(-40deg);transition:all .5s cubic-bezier(.34,1.56,.64,1)}
+  .in .stars span{opacity:1;transform:none}
+  .in .stars span:nth-child(2){transition-delay:.1s}.in .stars span:nth-child(3){transition-delay:.2s}.in .stars span:nth-child(4){transition-delay:.3s}.in .stars span:nth-child(5){transition-delay:.4s}
+  blockquote{position:relative}
+  blockquote:before{content:"\201C";position:absolute;left:-28px;top:-34px;font:400 110px/1 var(--sub);color:var(--white-dark);z-index:-1}
+  /* faq smooth */
+  details p{animation:fadeDown .45s ease}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  /* whatsapp pulse */
+  .wa:before{content:"";position:absolute;inset:0;border-radius:50%;background:#25d366;z-index:-1;animation:waPulse 2.4s ease-out infinite}
+  @keyframes waPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
+  .totop{position:fixed;right:24px;bottom:88px;z-index:60;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--blue);border:1px solid var(--white-dark);display:grid;place-items:center;box-shadow:0 10px 24px -10px rgba(3,30,64,.4);opacity:0;transform:translateY(16px);pointer-events:none;transition:all .4s}
+  .totop.show{opacity:1;transform:none;pointer-events:auto}
+  .totop:hover{background:var(--blue);color:#fff}
+  .touch .bg{will-change:transform}
+  .info div{transition:transform .35s,background .35s}
+  .info div:hover{transform:translateX(6px);background:rgba(233,242,247,.12)}
+  .stat{transition:transform .4s,box-shadow .4s}
+  .stat:hover{transform:translateY(-6px);box-shadow:0 22px 40px -26px rgba(3,30,64,.5)}
   @media (max-width:980px){
     .hero-inner{grid-template-columns:1fr;padding-top:0;min-height:auto}
     .hero-photo{position:relative;width:100%;height:62vh;min-height:420px}
@@ -251,11 +342,12 @@
     .burger{display:block}
     section{padding:72px 0}
   }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.rv,.hero .intro,.hero .cta,.hero .quote,.hero .ways,.hero .way{opacity:1!important;transform:none!important;filter:none!important}.split .w>span{transform:none!important;opacity:1!important}.reveal-img{clip-path:none!important}}
 </style>
 </head>
 <body>
 
+<div class="progress" id="progress"></div>
 <div class="nav" id="nav">
   <div class="container">
     <a href="#top" class="brand">Dr. Vigeesh<small>Amrita Homeo &amp; Mind Care</small></a>
@@ -274,19 +366,20 @@
 <header class="hero" id="top">
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-shade"></div>
+  <div class="orb o1"></div><div class="orb o2"></div>
   <div class="hero-photo" aria-hidden="true"><img src="img/portrait.jpg" alt=""></div>
-  <div class="hero-tag rv"><b>Dr. N. Vigeesh</b><small>BHMS · Consultant Homoeopath · Regn No. 8432</small></div>
+  <div class="hero-tag"><b>Dr. N. Vigeesh</b><small>BHMS · Consultant Homoeopath · Regn No. 8432</small></div>
   <div class="container hero-inner">
     <div>
-      <h1 class="rv">Healing That Begins Within</h1>
-      <p class="intro rv">Hello, I'm Dr. N. Vigeesh, Consultant Homoeopath at Amrita Homeo &amp; Mind Care Clinic, Pattambi. I listen first, then treat gently, with care that suits every age. Now you can consult me from home, through a private video call on this website.</p>
-      <div class="cta rv">
+      <h1 class="split" data-split>Healing That Begins Within</h1>
+      <p class="intro">Hello, I'm Dr. N. Vigeesh, Consultant Homoeopath at Amrita Homeo &amp; Mind Care Clinic, Pattambi. I listen first, then treat gently, with care that suits every age. Now you can consult me from home, through a private video call on this website.</p>
+      <div class="cta">
         <a href="#" class="btn btn-light" data-book>Book a consultation
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a href="#contact" class="btn btn-outline-light">Contact the clinic</a>
       </div>
-      <p class="quote rv"><i>"You are safe with Homoeopathy"</i> <span style="display:block">— the promise on our clinic door</span></p>
-    <div class="ways rv">
+      <p class="quote"><i>"You are safe with Homoeopathy"</i> <span style="display:block">— the promise on our clinic door</span></p>
+    <div class="ways">
       <p>Ways to consult</p>
       <div class="way" data-book="online-video-consultation">
         <span class="ring"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10l6-3v10l-6-3"/></svg></span>
@@ -312,14 +405,15 @@
 <svg class="hood" viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0 70V30C240 0 480 0 720 26s480 40 720 4v40z" fill="#f6fafc"/></svg>
 
 <main>
+<div class="marquee" style="margin-top:-1px" aria-hidden="true"><div class="track"><span>Expert Homoeopathic Care</span><span>Holistic treatment for all ages</span><span>Natural, safe &amp; side-effect free</span><span>Private video consultations</span><span>Mind care that listens</span><span>Amrita · Pattambi</span><span>Expert Homoeopathic Care</span><span>Holistic treatment for all ages</span><span>Natural, safe &amp; side-effect free</span><span>Private video consultations</span><span>Mind care that listens</span><span>Amrita · Pattambi</span></div></div>
   <section id="about">
     <div class="container journey">
-      <div class="portrait rv" id="portrait">
+      <div class="portrait rv from-left" id="portrait">
         <img src="img/portrait-arms.jpg" alt="Dr. N. Vigeesh" onerror="this.parentNode.classList.add('noimg')">
         <div class="mono"><div><b>Dr. Vigeesh</b><span>BHMS · Consultant Homoeopath</span></div></div>
         <div class="badge"><div><b>Dr. N. Vigeesh</b><small>BHMS · Consultant Homoeopath</small></div><span class="reg">Regn No. 8432</span></div>
       </div>
-      <div class="rv">
+      <div class="rv from-right">
         <h2 class="h2">My Road So Far</h2>
         <p class="h-sub">Where my practice began</p>
         <p>For years, families in Pattambi have known Amrita Homoeopathic Medical Centre as the clinic by the railway bus stop on Main Road. That is where I have built my practice, one patient and one family at a time.</p>
@@ -379,21 +473,21 @@
       <div class="rows">
         <div class="row rv"><span class="num">01</span>
           <div><small>The clinic</small><h3>Amrita Homeo &amp; Mind Care</h3><p>Look for the glowing Amrita signboard opposite Railway Station Road. Open every evening until 8:30 PM.</p></div>
-          <div class="pic"><img src="img/signboard.jpg" alt="Amrita Homeo & Mind Care Clinic signboard" loading="lazy"></div></div>
+          <div class="pic reveal-img"><img src="img/signboard.jpg" alt="Amrita Homeo & Mind Care Clinic signboard" loading="lazy"></div></div>
         <div class="row rv"><span class="num">02</span>
           <div><small>Our dispensary</small><h3>Quality remedies, in house</h3><p>Medicines are dispensed at the clinic from trusted homoeopathic manufacturers, so you leave with exactly what was prescribed.</p></div>
-          <div class="pic"><img src="img/pharmacy.jpg" alt="Homoeopathic medicines at the clinic" loading="lazy"></div></div>
+          <div class="pic reveal-img"><img src="img/pharmacy.jpg" alt="Homoeopathic medicines at the clinic" loading="lazy"></div></div>
         <div class="row rv"><span class="num">03</span>
           <div><small>Finding us</small><h3>In the heart of Pattambi</h3><p>On Main Road near the railway bus stop, in the busy market stretch, easy to reach by bus, train or auto.</p></div>
-          <div class="pic"><img src="img/clinic-building.jpg" alt="Main Road, Pattambi" loading="lazy"></div></div>
+          <div class="pic reveal-img"><img src="img/clinic-building.jpg" alt="Main Road, Pattambi" loading="lazy"></div></div>
       </div>
     </div>
   </section>
 
   <section style="padding-top:20px">
     <div class="container">
-      <div class="review rv">
-        <div class="score"><div class="big">4.8</div><div class="stars">★★★★★</div><small>Google rating<br>16 reviews</small></div>
+      <div class="review rv zoom">
+        <div class="score"><div class="big">4.8</div><div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><small>Google rating<br>16 reviews</small></div>
         <div>
           <blockquote>"Myself and wife consult Dr. Vijeesh for various ailments for last six years. He is very good in diagnosing and treating."</blockquote>
           <p>— Sankaranarayanan, Google review · <a href="https://maps.google.com/?cid=6963359608788889674" id="gLink" target="_blank" rel="noopener">Read all reviews on Google</a></p>
@@ -404,7 +498,7 @@
 
   <section id="book" style="padding-top:40px">
     <div class="container">
-      <div class="bookcard rv">
+      <div class="bookcard rv zoom">
         <div class="doc" role="img" aria-label="Amrita Homeo & Mind Care Clinic at night"></div>
         <div style="padding:48px 0">
           <h2 class="h2" style="font-size:clamp(28px,3.4vw,42px)">Book Your Consultation</h2>
@@ -469,6 +563,7 @@
   </div>
 </footer>
 
+<a class="totop" id="totop" href="#top" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 15l6-6 6 6"/></svg></a>
 <a class="wa" href="https://wa.me/919895642004" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.4z"/></svg>
 </a>
@@ -523,6 +618,58 @@
     });
   }), { threshold: .15 });
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+
+  /* ===== Motion JS ===== */
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // split headline into words
+  document.querySelectorAll('[data-split]').forEach(h => {
+    h.innerHTML = h.textContent.trim().split(/\s+/).map((w, i) => '<span class="w"><span style="--i:' + i + '">' + w + '</span></span>').join(' ');
+    requestAnimationFrame(() => setTimeout(() => h.classList.add('in'), 150));
+  });
+  // stagger children of grids
+  document.querySelectorAll('.stats,.cards,.rows,.creds,.info,.faq').forEach(g => {
+    [...g.children].forEach((c, i) => { if (c.classList.contains('rv')) c.style.setProperty('--d', (i * 0.12) + 's'); });
+  });
+  document.querySelectorAll('.info>div,.creds>span,.faq>details').forEach((c, i, all) => { c.classList.add('rv'); io.observe(c); });
+  document.querySelectorAll('.info>div').forEach((c, i) => c.style.setProperty('--d', (i * .12) + 's'));
+  document.querySelectorAll('.creds>span').forEach((c, i) => c.style.setProperty('--d', (.3 + i * .08) + 's'));
+  document.querySelectorAll('.faq>details').forEach((c, i) => c.style.setProperty('--d', (i * .08) + 's'));
+  // scroll progress, back-to-top, parallax
+  const prog = document.getElementById('progress'), totop = document.getElementById('totop');
+  const touchBg = document.querySelector('.touch .bg'), touch = document.querySelector('.touch');
+  const pics = [...document.querySelectorAll('.row .pic')];
+  let ticking = false;
+  function motion() {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (scrollY / h * 100) + '%';
+    totop.classList.toggle('show', scrollY > innerHeight);
+    if (!reduce) {
+      const r = touch.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) touchBg.style.transform = 'translate3d(0,' + ((r.top - innerHeight / 2) * -0.15) + 'px,0) scale(1.15)';
+      pics.forEach(p => { const b = p.getBoundingClientRect(); if (b.top < innerHeight && b.bottom > 0) { const img = p.querySelector('img'); img.style.objectPosition = 'center ' + (50 + (b.top - innerHeight / 2) / innerHeight * 30) + '%'; } });
+    }
+    ticking = false;
+  }
+  addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(motion); ticking = true; } }, { passive: true }); motion();
+  // 3D tilt on cards & portrait (pointer devices only)
+  if (!reduce && matchMedia('(hover:hover)').matches) {
+    document.querySelectorAll('.card,.portrait').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        el.style.transition = 'transform .1s'; el.style.transform = 'perspective(900px) rotateY(' + (x * 8) + 'deg) rotateX(' + (-y * 8) + 'deg) translateY(-6px)';
+      });
+      el.addEventListener('mouseleave', () => { el.style.transition = 'transform .6s cubic-bezier(.22,1,.36,1)'; el.style.transform = ''; });
+    });
+    // magnetic primary buttons
+    document.querySelectorAll('.btn-light,.btn-primary').forEach(b => {
+      b.addEventListener('mousemove', e => { const r = b.getBoundingClientRect(); b.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * .18) + 'px,' + ((e.clientY - r.top - r.height / 2) * .3 - 3) + 'px)'; });
+      b.addEventListener('mouseleave', () => b.style.transform = '');
+    });
+    // hero photo follows mouse slightly
+    const hp = document.querySelector('.hero-photo');
+    document.querySelector('header.hero').addEventListener('mousemove', e => { const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5; hp.style.transform = 'translate3d(' + (x * -14) + 'px,' + (y * -10) + 'px,0)'; });
+  }
 
   /* booking modal */
   const modal = document.getElementById('modal'), optsBox = document.getElementById('opts'),
