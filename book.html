@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choose Your Time | Dr. N. Vigeesh</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Pacifico&family=Spectral:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--blue:#053067;--bridge:#005293;--lb-dark:#73add0;--lb-light:#a6cbe1;--white:#e9f2f7;--wl:#f6fafc;--wd:#daeaef;--muted:#4a6382}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--wl);color:#031e40}
+  a{color:inherit;text-decoration:none}
+  header{background:linear-gradient(90deg,var(--blue),var(--bridge));color:var(--wl)}
+  .nav{max-width:1100px;margin:0 auto;padding:0 22px;height:74px;display:flex;align-items:center;justify-content:space-between}
+  .brand{font:22px Pacifico,cursive}
+  .brand small{display:block;font:500 11px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--lb-light);margin-top:-4px}
+  .back{font-size:14px;border:1px solid rgba(246,250,252,.6);padding:10px 16px;border-radius:4px}
+  main{max-width:1100px;margin:0 auto;padding:34px 22px 60px}
+  .ok{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--wd);border-radius:16px;padding:20px 24px;margin-bottom:22px}
+  .ok .ic{width:46px;height:46px;border-radius:50%;background:var(--white);color:var(--bridge);display:grid;place-items:center;flex:none}
+  h1{font:600 clamp(22px,2.6vw,30px) Spectral,serif;color:var(--blue)}
+  .ok p{color:var(--muted);font-size:15px}
+  .panel{background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--wd);box-shadow:0 24px 60px -30px rgba(3,30,64,.35)}
+  iframe{width:100%;height:780px;border:0;display:block}
+  .note{margin-top:16px;color:var(--muted);font-size:14.5px}
+  .note a{color:var(--bridge);font-weight:600}
+  @media (max-width:640px){iframe{height:1000px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a href="index.html" class="brand">Dr. Vigeesh<small>Amrita Homeo &amp; Mind Care</small></a><a href="index.html" class="back">← Back to website</a></div></header>
+<main>
+  <div class="ok">
+    <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span>
+    <div><h1 id="hd">Payment noted — thank you</h1><p>Last step: choose your date and time below. Please enter your WhatsApp number so we can send your consultation link.</p></div>
+  </div>
+  <div class="panel"><iframe id="calFrame" title="Booking calendar" allow="payment"></iframe></div>
+  <p class="note">Need help? WhatsApp <a href="https://wa.me/919895642004" target="_blank" rel="noopener">+91 98956 42004</a></p>
+</main>
+<script src="config.js"></script>
+<script>
+  const S = window.SITE, q = new URLSearchParams(location.search);
+  let type = q.get('type'); if (!S.consults[type]) type = 'online-video-consultation';
+  const c = S.consults[type], utr = q.get('utr') || '';
+  document.getElementById('hd').textContent = c.label + ' · ' + c.mins + ' minutes';
+  let src = S.calBase + c.cal + '?embed=true&theme=light';
+  if (utr) src += '&notes=' + encodeURIComponent('UPI ref: ' + utr + ' · ' + c.label);
+  document.getElementById('calFrame').src = src;
+</script>
+</body>
+</html>
